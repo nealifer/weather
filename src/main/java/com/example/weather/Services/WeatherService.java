@@ -17,14 +17,15 @@ import java.net.URL;
 public class WeatherService {
 
 
-    public String weather (String city) throws IOException {
+    public String weather(String city) throws IOException {
 
         String page = "http://api.openweathermap.org/data/2.5/weather?q=" +
                 city + "&APPID=f5796476946b43073aed364938f4dfd1";
 
 
         URL url = new URL(page);
-        System.out.println(page);
+
+
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("GET");
         BufferedReader in = new BufferedReader(
@@ -43,8 +44,14 @@ public class WeatherService {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-         JSONObject more = (JSONObject) json.get("main");
-        return  more.get("temp").toString();
+        JSONObject more = (JSONObject) json.get("main");
+        String location = (String) json.get("name");
+        String kelvin = more.get("temp").toString();
 
+        Double k = Double.parseDouble(kelvin);
+
+        Double res =  (((k - 273) * 9/5) + 32);
+
+        return  location + " : " +  Double.toString( Math.round(res));
     }
 }

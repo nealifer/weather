@@ -16,10 +16,10 @@ public class WeatherApplication {
     public static void main(String[] args) throws IOException {
             ApplicationContext cat =SpringApplication.run(WeatherApplication.class, args);
 
-            String city = "Boston";
-
+            //String city = "Boston";
+            String city = args[0];
             System.out.println(cat.getBean(Weather.class).Weather(city));
-        System.out.println(cat.getBean(Weather.class).Forcast(city));
+        //System.out.println(cat.getBean(Weather.class).Forcast(city));
             //System.out.println(ctx.getBean(PropertyInjectedController.class).sayHello());
     }
 }
